@@ -3,10 +3,12 @@ package org.example.hw2;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-public class UserRepository {
+public class UserDAO {
 
-    public User findById(int id) {
+    public User findById(long id) {
         try (Session session = HibernateRunner.getSessionFactory().openSession()) {
+            session.beginTransaction();
+
             return session.find(User.class, id);
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
@@ -16,9 +18,21 @@ public class UserRepository {
 
     public void save(User user) {
         try (Session session = HibernateRunner.getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            session.persist(user);
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+        }
+    }
+
+    public void update(User user) {
+        try (Session session = HibernateRunner.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
 
-            session.
+            session.merge(user);
 
             transaction.commit();
         } catch (Exception e) {
@@ -26,19 +40,15 @@ public class UserRepository {
         }
     }
 
-    public void update(User user) {
-        Session session = HibernateRunner.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
-        session.update(user);
-        tx1.commit();
-        session.close();
-    }
-
     public void delete(User user) {
-        Session session = HibernateRunner.getSessionFactory().openSession();
-        Transaction tx1 = session.beginTransaction();
-        session.delete(user);
-        tx1.commit();
-        session.close();
+        try (Session session = HibernateRunner.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            session.remove(user);
+
+            transaction.commit();
+        } catch (Exception e) {
+            System.out.println("error: " + e.getMessage());
+        }
     }
 }
