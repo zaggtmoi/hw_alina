@@ -1,13 +1,17 @@
 package org.example.hw2;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class ConsoleView {
-    private final BufferedReader reader;
 
+public class ConsoleView {
+    private static final Logger logger = LoggerFactory.getLogger(ConsoleView.class);
     private static final String SKIP_LINE = "-";
+    private final BufferedReader reader;
 
     public ConsoleView() {
         reader = new BufferedReader(new InputStreamReader(System.in));
@@ -17,18 +21,19 @@ public class ConsoleView {
     public ViewMenuItem getCommand() {
         do {
             System.out.println("Введите команду (get, add, update, delete, exit):");
-            String command;
+            String command = "";
             try {
                 do {
                     command = reader.readLine().toUpperCase();
                 } while (command.isBlank());
                 return ViewMenuItem.valueOf(command);
             } catch (IOException e) {
+                logger.error("Can't get user command.", e);
+                System.out.println("Не удалось получить команду.");
                 throw new RuntimeException(e);
-                //todo log
             } catch (IllegalArgumentException e) {
+                logger.error("Wrong input: {}", command);
                 System.out.println("Неверная команда, попробуйте снова.");
-                //todo log
             }
         } while (true);
     }
@@ -38,8 +43,8 @@ public class ConsoleView {
         try {
             return Long.parseLong(reader.readLine());
         } catch (IOException e) {
+            logger.error("Can't get id", e);
             throw new RuntimeException(e);
-            //todo log
         }
     }
 
@@ -59,8 +64,8 @@ public class ConsoleView {
             String eMail = reader.readLine();
             return new User(name, eMail, age);
         } catch (IOException e) {
+            logger.error("Can't get new user data", e);
             throw new RuntimeException(e);
-            //todo log
         }
     }
 
@@ -85,8 +90,8 @@ public class ConsoleView {
                 user.setEmail(eMail);
             }
         } catch (IOException e) {
+            logger.error("Can't get data for update", e);
             throw new RuntimeException(e);
-            //todo log
         }
     }
 }

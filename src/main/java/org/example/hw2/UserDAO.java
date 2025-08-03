@@ -2,8 +2,11 @@ package org.example.hw2;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserDAO {
+    private static final Logger logger = LoggerFactory.getLogger(UserDAO.class);
 
     public User findById(long id) {
         try (Session session = HibernateRunner.getSessionFactory().openSession()) {
@@ -11,7 +14,7 @@ public class UserDAO {
 
             return session.find(User.class, id);
         } catch (Exception e) {
-            System.out.println("error: " + e.getMessage());
+            logger.error("Find err user id {}. {}", id, e.getMessage());
             return null;
         }
     }
@@ -24,7 +27,7 @@ public class UserDAO {
 
             session.getTransaction().commit();
         } catch (Exception e) {
-            System.out.println("error: " + e.getMessage());
+            logger.error("Save err on user {}. {}", user.toString(), e.getMessage());
         }
     }
 
@@ -36,7 +39,7 @@ public class UserDAO {
 
             transaction.commit();
         } catch (Exception e) {
-            System.out.println("error: " + e.getMessage());
+            logger.error("Update err on user {}. {}", user.toString(), e.getMessage());
         }
     }
 
@@ -48,7 +51,7 @@ public class UserDAO {
 
             transaction.commit();
         } catch (Exception e) {
-            System.out.println("error: " + e.getMessage());
+            logger.error("Delete err user id {}. {}", user.getId().toString(), e.getMessage());
         }
     }
 }
