@@ -27,7 +27,7 @@ public class UserDAO {
 
             session.getTransaction().commit();
         } catch (Exception e) {
-            logger.error("Save err on user {}. {}", user.toString(), e.getMessage());
+            logger.error("Save err on user {}. {}", print(user), e.getMessage());
         }
     }
 
@@ -39,7 +39,7 @@ public class UserDAO {
 
             transaction.commit();
         } catch (Exception e) {
-            logger.error("Update err on user {}. {}", user.toString(), e.getMessage());
+            logger.error("Update err on user {}. {}", print(user), e.getMessage());
         }
     }
 
@@ -51,7 +51,12 @@ public class UserDAO {
 
             transaction.commit();
         } catch (Exception e) {
-            logger.error("Delete err user id {}. {}", user.getId().toString(), e.getMessage());
+            String id = (user == null || user.getId() == null) ? "null" : user.getId().toString();
+            logger.error("Delete err user id {}. {}", id, e.getMessage());
         }
+    }
+
+    private String print(User user) {
+        return user == null ? "NO USER" : user.toString();
     }
 }

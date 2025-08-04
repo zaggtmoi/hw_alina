@@ -5,11 +5,11 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "\"User\"")
+@Table(name = "\"users\"")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "User_id_gen")
-    @SequenceGenerator(name = "User_id_gen", sequenceName = "User_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_gen")
+    @SequenceGenerator(name = "user_id_gen", sequenceName = "user_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -75,7 +75,7 @@ public class User {
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder(id.toString());
+        StringBuilder builder = new StringBuilder(id == null ? "no id" : id.toString());
         builder.append(": ").append(name);
         if (age != null) {
             builder.append(" (").append(age).append(") ");

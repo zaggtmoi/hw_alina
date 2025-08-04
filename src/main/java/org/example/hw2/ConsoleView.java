@@ -49,7 +49,7 @@ public class ConsoleView {
     }
 
     public void printUser(User user) {
-        System.out.println(user.toString());
+        System.out.println(user == null ? "NO USER" : user.toString());
     }
 
     public User getNewUserData() {
