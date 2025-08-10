@@ -10,6 +10,10 @@ public class UserService {
         dao = new UserDAO();
     }
 
+    public UserService(UserDAO dao) {
+        this.dao = dao;
+    }
+
     public User getById(long id) {
         return dao.findById(id);
     }
