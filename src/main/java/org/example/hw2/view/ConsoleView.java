@@ -1,5 +1,7 @@
-package org.example.hw2;
+package org.example.hw2.view;
 
+import org.example.hw2.model.User;
+import org.example.hw2.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,10 +50,6 @@ public class ConsoleView {
         }
     }
 
-    public void printUser(User user) {
-        System.out.println(user == null ? "NO USER" : user.toString());
-    }
-
     public User getNewUserData() {
         try {
             System.out.println("Введите имя:");
@@ -71,7 +69,7 @@ public class ConsoleView {
 
     public void getUpdateData(User user) {
         System.out.print("Данные в системе: ");
-        printUser(user);
+        System.out.println(UserUtils.print(user));
         System.out.println("Укажите новые данные для полей или поставьте " + SKIP_LINE);
         try {
             System.out.println("Введите имя:");
@@ -93,5 +91,9 @@ public class ConsoleView {
             logger.error("Can't get data for update", e);
             throw new RuntimeException(e);
         }
+    }
+
+    public void printError(String s) {
+        System.out.println("Сбой при выполнении операции. " + s);
     }
 }

@@ -1,3 +1,5 @@
+package hw1;
+
 import org.example.hw1.SimpleHashMap;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,7 @@
-package org.example.hw2;
+package org.example.hw2.dao;
 
+import lombok.Getter;
+import org.example.hw2.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.slf4j.Logger;
@@ -8,6 +10,8 @@ import org.slf4j.LoggerFactory;
 public class HibernateRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(HibernateRunner.class);
+
+    @Getter
     private static final SessionFactory sessionFactory = buildSessionFactory();
 
     private static SessionFactory buildSessionFactory() {
@@ -21,7 +25,4 @@ public class HibernateRunner {
         }
     }
 
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
 }

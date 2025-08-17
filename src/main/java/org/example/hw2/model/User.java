@@ -1,4 +1,4 @@
-package org.example.hw2;
+package org.example.hw2.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
