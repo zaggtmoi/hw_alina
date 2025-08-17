@@ -96,4 +96,8 @@ public class ConsoleView {
     public void printError(String s) {
         System.out.println("Сбой при выполнении операции. " + s);
     }
+
+    public void printUser(User user) {
+        System.out.println(UserUtils.print(user));
+    }
 }
