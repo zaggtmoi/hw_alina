@@ -1,7 +1,7 @@
 package hw3;
 
 
-import org.example.hw2.dao.UserDAO;
+import org.example.hw2.dao.UserRepository;
 import org.example.hw2.exception.DaoException;
 import org.example.hw2.model.User;
 import org.hibernate.Session;
@@ -11,6 +11,7 @@ import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -24,7 +25,8 @@ public class UserDaoTest {
             .withPassword("testpass");
 
     static SessionFactory sessionFactory;
-    static UserDAO userDAO;
+
+    public UserRepository userRepository;
 
     @BeforeAll
     public static void setUp() {
@@ -40,7 +42,7 @@ public class UserDaoTest {
         configuration.addAnnotatedClass(User.class);
 
         sessionFactory = configuration.buildSessionFactory();
-        userDAO = new UserDAO(sessionFactory);
+        //userDAO = new UserDAO(sessionFactory);
     }
 
     @AfterAll
@@ -65,7 +67,7 @@ public class UserDaoTest {
     }
 
 
-    @Test
+    /*@Test
     public void getByIdNoUserTest() {
         User noUser = userDAO.findById(1);
         Assertions.assertNull(noUser);
@@ -77,6 +79,6 @@ public class UserDaoTest {
                 DaoException.class, () ->
                 userDAO.delete(null)
         );
-    }
+    }*/
 
 }

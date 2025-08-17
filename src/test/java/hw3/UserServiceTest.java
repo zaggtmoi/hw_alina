@@ -1,8 +1,8 @@
 package hw3;
 
+import org.example.hw2.dao.UserRepository;
 import org.example.hw2.exception.DaoException;
 import org.example.hw2.model.User;
-import org.example.hw2.dao.UserDAO;
 import org.example.hw2.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -18,11 +18,11 @@ import static org.mockito.Mockito.doAnswer;
 public class UserServiceTest {
 
     static UserService service;
-    static UserDAO userDaoMock;
+    static UserRepository userDaoMock;
 
     @BeforeAll
     static void setService() {
-        userDaoMock = Mockito.mock(UserDAO.class);
+        userDaoMock = Mockito.mock(UserRepository.class);
         service = new UserService(userDaoMock);
     }
 

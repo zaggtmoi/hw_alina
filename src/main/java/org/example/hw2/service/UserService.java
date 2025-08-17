@@ -1,38 +1,39 @@
 package org.example.hw2.service;
 
-import org.example.hw2.dao.UserDAO;
+import org.example.hw2.dao.UserRepository;
 import org.example.hw2.exception.DaoException;
 import org.example.hw2.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Optional;
 
+@Service
 public class UserService {
 
-    private final UserDAO dao;
+    @Autowired
+    private final UserRepository userRepository;
 
-    public UserService() {
-        dao = new UserDAO();
-    }
-
-    public UserService(UserDAO dao) {
-        this.dao = dao;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public User getById(long id) {
-        return dao.findById(id);
+        return userRepository.findById(id).orElse(null);
     }
 
     public void createNewUser(User user) throws DaoException {
         user.setCreatedAt(Instant.now());
-        dao.save(user);
+        userRepository.save(user);
     }
 
     public void update(User user) throws DaoException {
-        dao.update(user);
+        userRepository.save(user);
     }
 
     public void delete(long id) throws DaoException {
-        dao.delete(dao.findById(id));
+        userRepository.deleteById(id);
     }
 
 }
